@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet.draw vector editing handlers</title>
+
+    <script src="libs/leaflet-src.js"></script>
+    <link rel="stylesheet" href="libs/leaflet.css"/>
+
+<!--	Drawing tool bar & edit & delete -->
+    <script src="../../src/Leaflet.draw.js"></script>
+    <script src="../../src/Leaflet.Draw.Event.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/leaflet.draw.css"/>
+	
+	<script src="../../src/Control.Draw.js"></script>
+
+
+    <script src="../../src/Toolbar.js"></script>
+    <script src="../../src/Tooltip.js"></script>
+	
+<!--beb2a fahm double click enha finish drawing ,, befhm pad language -->
+	<script src="../../src/ext/GeometryUtil.js"></script>
+    <script src="../../src/ext/LatLngUtil.js"></script>
+    <script src="../../src/ext/LineUtil.Intersect.js"></script>
+    <script src="../../src/ext/Polygon.Intersect.js"></script>
+    <script src="../../src/ext/Polyline.Intersect.js"></script>
+    <script src="../../src/ext/TouchEvents.js"></script>
+	
+    
+<!--draw tool bar-->
+	
+    <script src="../../src/draw/DrawToolbar.js"></script>
+    <script src="../../src/draw/handler/Draw.Feature.js"></script>
+    <script src="../../src/draw/handler/Draw.SimpleShape.js"></script>
+    <script src="../../src/draw/handler/Draw.Polyline.js"></script>
+    <script src="../../src/draw/handler/Draw.Circle.js"></script>
+    <script src="../../src/draw/handler/Draw.Marker.js"></script>
+    <script src="../../src/draw/handler/Draw.Polygon.js"></script>
+    <script src="../../src/draw/handler/Draw.Rectangle.js"></script>
+
+<!--Edit tool bar-->
+    <script src="../../src/edit/EditToolbar.js"></script>
+    <script src="../../src/edit/handler/EditToolbar.Edit.js"></script>
+    <script src="../../src/edit/handler/EditToolbar.Delete.js"></script>
+
+<!--Edit functionality-->
+    <script src="../../src/edit/handler/Edit.Poly.js"></script>
+    <script src="../../src/edit/handler/Edit.SimpleShape.js"></script>
+    <script src="../../src/edit/handler/Edit.Circle.js"></script>
+    <script src="../../src/edit/handler/Edit.Rectangle.js"></script>
+    <script src="../../src/edit/handler/Edit.Marker.js"></script>
+</head>
+<body>
+<!--<div id="mapid" style="width: 800px; height: 600px; border: 1px solid #ccc"></div>-->
+	
+<!--
+	
+	
+	<div id="mapid" style="width: 800px; height: 600px; border: 1px solid rgb(204, 204, 204); position: relative;" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-touch-zoom leaflet-grab leaflet-touch-drag" tabindex="0">
+		<div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);">
+			<div class="leaflet-pane leaflet-tile-pane">
+				<div class="leaflet-layer " style="z-index: 1; opacity: 1;">
+					<div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);">
+						<img alt="" src="http://b.tile.openstreetmap.org/11/1201/840.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(201px, 44px, 0px); opacity: 1;">
+						<img alt="" src="http://c.tile.openstreetmap.org/11/1202/840.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(457px, 44px, 0px); opacity: 1;">
+						<img alt="" src="http://c.tile.openstreetmap.org/11/1201/841.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(201px, 300px, 0px); opacity: 1;">
+						<img alt="" src="http://a.tile.openstreetmap.org/11/1202/841.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(457px, 300px, 0px); opacity: 1;">
+						<img alt="" src="http://a.tile.openstreetmap.org/11/1201/839.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(201px, -212px, 0px); opacity: 1;">
+						<img alt="" src="http://a.tile.openstreetmap.org/11/1203/840.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(713px, 44px, 0px); opacity: 1;">
+						<img alt="" src="http://b.tile.openstreetmap.org/11/1202/839.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(457px, -212px, 0px); opacity: 1;">
+						<img alt="" src="http://b.tile.openstreetmap.org/11/1200/841.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-55px, 300px, 0px); opacity: 1;">
+						<img alt="" src="http://a.tile.openstreetmap.org/11/1200/840.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-55px, 44px, 0px); opacity: 1;">
+						<img alt="" src="http://b.tile.openstreetmap.org/11/1203/841.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(713px, 300px, 0px); opacity: 1;">
+						<img alt="" src="http://a.tile.openstreetmap.org/11/1201/842.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(201px, 556px, 0px); opacity: 1;">
+						<img alt="" src="http://b.tile.openstreetmap.org/11/1202/842.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(457px, 556px, 0px); opacity: 1;">
+						<img alt="" src="http://c.tile.openstreetmap.org/11/1200/842.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-55px, 556px, 0px); opacity: 1;">
+						<img alt="" src="http://c.tile.openstreetmap.org/11/1200/839.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-55px, -212px, 0px); opacity: 1;">
+						<img alt="" src="http://c.tile.openstreetmap.org/11/1203/839.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(713px, -212px, 0px); opacity: 1;">
+						<img alt="" src="http://c.tile.openstreetmap.org/11/1203/842.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(713px, 556px, 0px); opacity: 1;">
+					</div>
+				</div>
+			</div>
+			<div class="leaflet-pane leaflet-shadow-pane"></div>
+			<div class="leaflet-pane leaflet-overlay-pane">
+				<svg pointer-events="none" class="leaflet-zoom-animated" width="960" height="720" viewBox="-80 -60 960 720" style="transform: translate3d(-80px, -60px, 0px);">
+				</svg>
+			</div>
+			<div class="leaflet-pane leaflet-marker-pane"></div>
+			<div class="leaflet-pane leaflet-tooltip-pane"></div>
+			<div class="leaflet-pane leaflet-popup-pane"></div>
+			<div class="leaflet-proxy leaflet-zoom-animated"></div>
+		</div><div class="leaflet-control-container">
+		<div class="leaflet-top leaflet-left">
+			<div class="leaflet-control-zoom leaflet-bar leaflet-control">
+				<a class="leaflet-control-zoom-in" href="#" title="Zoom in">+</a>
+				<a class="leaflet-control-zoom-out" href="#" title="Zoom out">-</a>
+			</div>
+			<div class="leaflet-control-layers leaflet-control-layers-expanded leaflet-control" aria-haspopup="true">
+				<form class="leaflet-control-layers-list">
+					<div class="leaflet-control-layers-base">
+						<label>
+							<div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers" checked="checked">
+								<span> osm</span>
+							</div>
+						</label>
+						<label>
+							<div>
+								<input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers">
+								<span> google</span>
+							</div>
+						</label>
+					</div>
+					<div class="leaflet-control-layers-separator"></div>
+					<div class="leaflet-control-layers-overlays">
+						<label>
+						<div><input type="checkbox" class="leaflet-control-layers-selector" checked=""><span> drawlayer</span>
+						</div>
+						</label>
+					</div>
+				</form>
+			</div>
+			<div class="leaflet-draw leaflet-control">
+				<div class="leaflet-draw-section">
+					<div class="leaflet-draw-toolbar leaflet-bar leaflet-draw-toolbar-top">
+					
+						<a class="leaflet-draw-draw-polygon" href="#" title="Draw a polygon"><span class="sr-only">Draw a polygon</span></a>
+						
+						<a class="leaflet-draw-draw-marker" href="#" title="Draw a marker"><span class="sr-only">Draw a marker</span></a>
+					</div>
+					<ul class="leaflet-draw-actions" style="top: 94px; display: none;">
+						<li class=""><a class="" href="#" title="Cancel drawing">Cancel</a>
+						</li>
+					</ul>
+				</div>
+				<div class="leaflet-draw-section">
+					<div class="leaflet-draw-toolbar leaflet-bar">
+						<a class="leaflet-draw-edit-edit" href="#" title="Edit layers.">
+							<span class="sr-only">Edit layers.</span>
+						</a>
+						<a class="leaflet-draw-edit-remove" href="#" title="Delete layers."><span class="sr-only">Delete layers.</span></a>
+					</div>
+					<ul class="leaflet-draw-actions"></ul>
+				</div>
+			</div>
+		</div>
+		<div class="leaflet-top leaflet-right"></div>
+		<div class="leaflet-bottom leaflet-left"></div>
+		<div class="leaflet-bottom leaflet-right">
+			<div class="leaflet-control-attribution leaflet-control">
+				<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>
+				| © <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> 
+				contributors</div>
+		</div>
+		</div>
+	</div>
+-->
+	
+	
+<!--	// ANOTHER EDIT TRY-->
+	
+	<div id="mapid" style="width: 800px; height: 600px;">
+	
+<script>
+	
+//  //trail function to make servicr on the base map
+//	
+//	map.on('overlayadd', function(e) {
+//        updateInteractiveLayers(e.layer.options.layers);
+//    }); 
+//    map.on('overlayremove', function(e) {
+//        updateInteractiveLayers(e.layer.options.layers);
+//    }); 
+	
+	
+    var //osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+       osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	//	osm = L.tileLayer(osmUrl,{attribution: osmAttrib})
+		googleImage='http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}',
+		google = L.tileLayer(googleImage, { maxZoom: 18, attribution: osmAttrib }),
+        map = new L.Map('mapid', { center: new L.LatLng(30.00, 31.425), zoom: 14});
+	  map.addLayer(google);
+	//		map.addLayer(osm);
+		
+
+        drawnItems = L.featureGroup().addTo(map);
+	
+		// to add geoserver service on leaflet basemap
+	var newLayer = L.tileLayer.wms('http://localhost:8080/geoserver/sunShapeFileTry1/wms?',
+{
+		layers: 'Residential_buildings',
+		transparent:true,
+		continuousWorld: true,
+		format : 'image/png',
+		
+	});
+	
+	map.addLayer(newLayer);
+	
+	
+	//updateInteractiveLayers(newLayer);
+	
+	
+//	var wfsLayer = new L.WFST ({
+//		url:'http://localhost:8080/geoserver/ows/sunShapeFileTry1/service/wfs?',
+//		typeNS: 'sunShapeFileTry1',
+//		typeName: 'Residential_buildings',
+//		crs: L.CRS.EPSG32436
+//	}).addTo(map).once('load',function(){
+//		 map.fitBounds(wfsLayer);
+//	});
+//	
+	/* 
+	var wfst = new L.WFST({
+    url: 'http://geoserver.ics.perm.ru/geoserver/ows',
+    typeNS: 'osm_perm_region',
+    typeName: 'perm_water_polygon',
+    crs: L.CRS.EPSG4326,
+    geometryField: 'ogr_geometry',
+    style: {
+      color: 'blue',
+      weight: 2
+    }
+  }).addTo(map)
+    .once('load', function () {
+      map.fitBounds(wfst);
+    });
+	*/
+	
+    L.control.layers({
+        'google': google.addTo(map),
+//        "osm": osm
+    }, { 'drawlayer': drawnItems }, { position: 'topleft', collapsed: false}).addTo(map);
+	
+	
+	
+	
+	
+    map.addControl(new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems,
+            poly: {
+                allowIntersection: false
+            }
+        }
+    }));
+
+    map.on(L.Draw.Event.CREATED, function (event) {
+        var layer = event.layer;
+
+        drawnItems.addLayer(layer);
+    });
+	
+	
+	//map.addLayer(wmsLayer);
+	
+	//var geoJsonUrl = "http://localhost:8080/geoserver/cite/ows?service=WFS&version=1.1.0&request=GetFeature&typeName=cite:masts&srsName=EPSG:4326&format=text/javascript&outputFormat=json&format_options=callback:loadGeoJson";
+
+</script>
+</body>
+</html>
